@@ -1,6 +1,6 @@
-<domain type='kvm' id='11'>
-  <name>reference</name>
-  <uuid>6240b14d-a4ed-4feb-850b-b323c3180165</uuid>
+<domain type='kvm'>
+  <name>router_1</name>
+  <uuid>213f6092-2cd8-4d46-a4b0-98018316d4cf</uuid>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
       <libosinfo:os id="http://alpinelinux.org/alpinelinux/3.8"/>
@@ -60,7 +60,7 @@
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2'/>
-      <source file='/var/lib/libvirt/images/reference.qcow2' index='2'/>
+      <source file='/var/lib/libvirt/images/router_1.qcow2'/>
       <backingStore/>
       <target dev='hda' bus='ide'/>
       <alias name='ide0-0-0'/>
@@ -104,7 +104,7 @@
       <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
     </controller>
     <interface type='network'>
-      <mac address='52:54:00:93:b8:13'/>
+      <mac address='90:54:00:93:b8:13'/>
       <source network='default' portid='238bc174-3b42-43ce-a214-eed97b24116b' bridge='virbr0'/>
       <target dev='vnet0'/>
       <model type='e1000'/>
