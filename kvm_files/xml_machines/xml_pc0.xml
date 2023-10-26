@@ -1,5 +1,5 @@
 <domain type="kvm">
-    <name>XXX</name>
+    <name>pc0</name>
     <memory>1048576</memory>
     <currentMemory>1048576</currentMemory>
     <vcpu>2</vcpu>
@@ -23,10 +23,6 @@
             <source file="/home/alumno/Descargas/agr-vm-base-pc0.qcow2"/>
             <target dev="vda" bus="virtio"/>
         </disk>
-        <interface type="bridge">
-            <source bridge="XXX"/>
-            <model type="virtio"/>
-        </interface>
         <serial type="pty">
             <target port="0"/>
         </serial>

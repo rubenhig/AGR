@@ -25,7 +25,12 @@ sudo virsh dumpxml <id> > config_vm.xml
 
 # ahora toca hacer el script que genere el resto de maquinas virtuales
 cp config_vm.xml config_router_1.xml
-qemu-img create -f qcow2 -b /var/lib/libvirt/images/reference.qcow2 /var/lib/libvirt/images/router_1.qcow2
+qemu-img create -f qcow2 -b /var/lib/libvirt/images/reference.qcow2 -F qcow2 /var/lib/libvirt/images/router_1.qcow2
+
+#sudo virsh define [nombre_fichero.xml]     CREAR
+    sudo virsh define  
+#sudo virsh start [name_vm]                 ARRANCAR
+    
 
 # Cambiar el nombre de la máquina en <name>
 # Cambiar la ruta de la imagen de disco en <source file>
