@@ -1,6 +1,8 @@
 from lxml import etree
 import uuid
+import os
 
+BASE_DISK_PATH = '/home/alumno/Descargas/'
 
 class MacGenerator:
     def __init__(self) -> None:
@@ -69,10 +71,11 @@ class XmlGenerator:
 def main():
     # Specify the path to your XML file
     xml_file_path = "./xml_reference.xml"
-    
     # ============================== #
     #               pc0              #
     # ============================== #
+    name= 'pc0'
+    path= f'{BASE_DISK_PATH}{name}'
 
     # ============================== #
     #               pc1              #
