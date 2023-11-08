@@ -1,0 +1,51 @@
+version: '3'
+
+
+services:
+
+  router2: 
+    tty: true
+    build: 
+      context: ./router
+      dockerfile: Dockerfile
+    networks:
+      br_r2pc0: 
+        ipv4_address: 10.0.0.1
+      br_r2pc1:
+        ipv4_address: 10.0.1.1
+  
+  pc0:
+    tty: true
+    build: 
+      context: ./pc
+      dockerfile: Dockerfile
+    networks:
+      br_r2pc0: 
+        ipv4_address: 10.0.0.50
+
+      
+
+networks:
+  br_sr0:
+    internal: false
+    driver: bridge
+    ipam: 
+      config:
+        - subnet: "10.200.0.0/29"
+          gateway: 10.200.0.6
+
+  br_r2pc0:
+    internal: false
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "10.0.0.0/24"
+          gateway: 10.0.0.254
+  
+  br_r2pc1:
+    internal: false
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "10.0.1.0/24"
+          gateway: 10.0.1.254

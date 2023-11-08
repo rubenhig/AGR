@@ -1,0 +1,186 @@
+version: '3.8'
+
+
+services:
+
+  server:
+    build: 
+      context: ./server
+    volumes:
+      - ./server:/app
+    ports:
+      - "3000:3001"
+    networks:
+      br_sr0:
+        ipv4_address: 10.0.4.14
+
+  router0:
+    tty: true       # Ejecutar sin que se detenga
+    build: 
+      context: ./router # ruta del dockerfile # ruta del dockerfile
+    networks:
+      br_sr0:
+        ipv4_address: 10.0.4.13
+      br_r0r1:
+        ipv4_address: 10.1.0.2
+
+  router1:
+    tty: true       # Ejecutar sin que se detenga
+    build: 
+      context: ./router # ruta del dockerfile # ruta del dockerfile
+    networks:
+      br_r0r1:
+        ipv4_address: 10.1.0.1
+      br_r1r2:
+        ipv4_address: 10.2.0.2
+
+  router2:
+    tty: true       # Ejecutar sin que se detenga
+    build: 
+      context: ./router # ruta del dockerfile # ruta del dockerfile
+    networks:
+      br_r1r2:
+        ipv4_address: 10.2.0.1
+      br_r2pc0:
+        ipv4_address: 10.0.0.1
+      br_r2pc1:
+        ipv4_address: 10.0.1.1
+
+  router3:
+    tty: true       # Ejecutar sin que se detenga
+    build: 
+      context: ./router # ruta del dockerfile
+    networks:
+      br_r1r3:
+        ipv4_address: 10.3.0.1
+      br_r3pc2:
+        ipv4_address: 10.0.2.1
+      br_r3pc3:
+        ipv4_address: 10.0.3.1
+
+  pc0:
+    tty: true       # Ejecutar sin que se detenga
+    build: 
+      context: ./router # ruta del dockerfile
+    networks:
+      br_r2pc0:
+        ipv4_address: 10.0.0.215  # 215 por poner algo
+
+  pc1:
+    tty: true       # Ejecutar sin que se detenga
+    build: 
+      context: ./router # ruta del dockerfile
+    networks:
+      br_r2pc1:
+        ipv4_address: 10.0.1.215  # 215 por poner algo
+
+
+  pc2:
+    tty: true       # Ejecutar sin que se detenga
+    build: 
+      context: ./router # ruta del dockerfile
+    networks:
+      br_r3pc2:
+        ipv4_address: 10.0.2.215  # 215 por poner algo
+
+
+  pc3:
+    tty: true       # Ejecutar sin que se detenga
+    build: 
+      context: ./router # ruta del dockerfile
+    networks:
+      br_r3pc3:
+        ipv4_address: 10.0.3.215  # 215 por poner algo
+
+
+
+networks:
+  br_sr0:
+    driver: bridge
+    name: br_sr0
+    ipam: 
+      driver: default
+      config:
+        - subnet: "10.0.4.0/24"
+          gateway: "10.0.4.13"
+
+  br_r0r1:
+    driver: bridge
+    name: br_sr0
+    ipam: 
+      driver: default
+      config:
+        - subnet: "10.1.0.0/30"
+          gateway: "10.1.0.2"
+
+  br_r1r2:
+    driver: bridge
+    driver_opts: 
+      com.docker.network.enable_ipv4: "true"
+    external: false
+    name: br_sr0
+    ipam: 
+      driver: default
+      config:
+        - subnet: 10.2.0.0/30
+          gateway: 10.2.0.2
+
+  br_r1r3:
+    driver: bridge
+    driver_opts: 
+      com.docker.network.enable_ipv4: "true"
+    external: false
+    name: br_sr0
+    ipam: 
+      driver: default
+      config:
+        - subnet: 10.3.0.0/30
+        - gateway: 10.3.0.2
+
+  br_r2pc0:
+    driver: bridge
+    driver_opts: 
+      com.docker.network.enable_ipv4: "true"
+    external: false
+    name: br_sr0
+    ipam: 
+      driver: default
+      config:
+        - subnet: 10.0.0.0/24
+        - gateway: 10.0.0.1
+
+  br_r2pc1:
+    driver: bridge
+    driver_opts: 
+      com.docker.network.enable_ipv4: "true"
+    external: false
+    name: br_sr0
+    ipam: 
+      driver: default
+      config:
+        - subnet: 10.0.1.0/24
+        - gateway: 10.0.1.1
+  
+  br_r3pc2:
+    driver: bridge
+    driver_opts: 
+      com.docker.network.enable_ipv4: "true"
+    external: false
+    name: br_sr0
+    ipam: 
+      driver: default
+      config:
+        - subnet: 10.0.2.0/24
+        - gateway: 10.0.2.1
+  
+  br_r3pc3:
+    driver: bridge
+    driver_opts: 
+      com.docker.network.enable_ipv4: "true"
+    external: false
+    name: br_sr0
+    ipam: 
+      driver: default
+      config:
+        - subnet: 10.0.3.0/24
+        - gateway: 10.0.3.1
