@@ -57,43 +57,75 @@ def main():
     # ============================== #
 
     bridge_Red1_Rc = "Red1"
+
+    # Borrar los bridges antes de volver a crearlos
+    os.system(f"sudo ip link set {bridge_Red1_Rc} down")
+    os.system(f"sudo brctl delbr {bridge_Red1_Rc}")
+
     os.system(f"sudo brctl addbr {bridge_Red1_Rc}")
-    os.system(f"sudo ifconfig {bridge_Red1_Rc}")
-    os.system(f"sudo ifonfig {bridge_Red1_Rc} up")
+    os.system(f"sudo ifconfig {bridge_Red1_Rc} up")
 
     bridge_Red2_Rc = "Red2"
+
+    # Borrar los bridges antes de volver a crearlos
+    os.system(f"sudo ip link set {bridge_Red2_Rc} down")
+    os.system(f"sudo brctl delbr {bridge_Red2_Rc}")
+
     os.system(f"sudo brctl addbr {bridge_Red2_Rc}")
-    os.system(f"sudo ifconfig {bridge_Red2_Rc}")
-    os.system(f"sudo ifonfig {bridge_Red2_Rc} up")
+    os.system(f"sudo ifconfig {bridge_Red2_Rc} up")
 
     bridge_Red3_Rd = "Red3"
+
+    # Borrar los bridges antes de volver a crearlos
+    os.system(f"sudo ip link set {bridge_Red3_Rd} down")
+    os.system(f"sudo brctl delbr {bridge_Red3_Rd}")
+    
     os.system(f"sudo brctl addbr {bridge_Red3_Rd}")
-    os.system(f"sudo ifconfig {bridge_Red3_Rd}")
-    os.system(f"sudo ifonfig {bridge_Red3_Rd} up")
+    os.system(f"sudo ifconfig {bridge_Red3_Rd} up")
 
     bridge_Red4_Rd = "Red4"
+
+    # Borrar los bridges antes de volver a crearlos
+    os.system(f"sudo ip link set {bridge_Red4_Rd} down")
+    os.system(f"sudo brctl delbr {bridge_Red4_Rd}")
+
     os.system(f"sudo brctl addbr {bridge_Red4_Rd}")
-    os.system(f"sudo ifconfig {bridge_Red4_Rd}")
     os.system(f"sudo ifconfig {bridge_Red4_Rd} up")
 
     bridge_Rc_Rb = "RcRb"
+
+    # Borrar los bridges antes de volver a crearlos
+    os.system(f"sudo ip link set {bridge_Rc_Rb} down")
+    os.system(f"sudo brctl delbr {bridge_Rc_Rb}")
+
     os.system(f"sudo brctl addbr {bridge_Rc_Rb}")
-    os.system(f"sudo ifconfig {bridge_Rc_Rb}")
     os.system(f"sudo ifconfig {bridge_Rc_Rb} up")
 
     bridge_Rd_Rb = "RbRd"
+
+    # Borrar los bridges antes de volver a crearlos
+    os.system(f"sudo ip link set {bridge_Rd_Rb} down")
+    os.system(f"sudo brctl delbr {bridge_Rd_Rb}")
+
     os.system(f"sudo brctl addbr {bridge_Rd_Rb}")
-    os.system(f"sudo ifconfig {bridge_Rd_Rb}")
     os.system(f"sudo ifconfig {bridge_Rd_Rb} up")
 
-    bridge__Rb_Ra = "RbRa"
-    os.system(f"sudo brctl addbr {bridge__Rb_Ra}")
-    os.system(f"sudo ifconfig {bridge__Rb_Ra}")
-    os.system(f"sudo ifconfig {bridge__Rb_Ra} up")
+    bridge_Rb_Ra = "RbRa"
+
+    # Borrar los bridges antes de volver a crearlos
+    os.system(f"sudo ip link set {bridge_Rb_Ra} down")
+    os.system(f"sudo brctl delbr {bridge_Rb_Ra}")
+
+    os.system(f"sudo brctl addbr {bridge_Rb_Ra}")
+    os.system(f"sudo ifconfig {bridge_Rb_Ra} up")
 
     bridge_Ra_Servidor = "SRa"
+
+    # Borrar los bridges antes de volver a crearlos
+    os.system(f"sudo ip link set {bridge_Ra_Servidor} down")
+    os.system(f"sudo brctl delbr {bridge_Ra_Servidor}")
+
     os.system(f"sudo brctl addbr {bridge_Ra_Servidor}")
-    os.system(f"sudo ifconfig {bridge_Ra_Servidor}")
     os.system(f"sudo ifconfig {bridge_Ra_Servidor} up")
 
     # ============================== #
@@ -105,8 +137,12 @@ def main():
     xml_path = f"./xml_machines/{name}.xml"
     os.system(f"qemu-img create -f qcow2 -b {MASTER_DISK_PATH} -F qcow2 {disk_path}")
     xml_generator.generateXml(name, disk_path, xml_path, bridges=[bridge_Red1_Rc])
-    # os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/{name} /etc/network/interfaces')
+
     os.system(f"sudo virsh define {xml_path}")
+     
+    copy_to_interfaces(f'./interfaces/{name}')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+
     os.system(f"sudo virsh start {name}")
 
     # ============================== #
@@ -120,6 +156,10 @@ def main():
     xml_generator.generateXml(name, disk_path, xml_path, bridges=[bridge_Red2_Rc])
 
     os.system(f"sudo virsh define {xml_path}")
+ 
+    copy_to_interfaces(f'./interfaces/{name}')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+
     os.system(f"sudo virsh start {name}")
 
     # ============================== #
@@ -130,9 +170,13 @@ def main():
     disk_path = f"{BASE_DISK_PATH}{name}.qcow2"
     xml_path = f"./xml_machines/{name}.xml"
     os.system(f"qemu-img create -f qcow2 -b {MASTER_DISK_PATH} -F qcow2 {disk_path}")
-    xml_generator.generateXml(name, disk_path, xml_path, bridges=[bridge_Red2_Rc])
+    xml_generator.generateXml(name, disk_path, xml_path, bridges=[bridge_Red3_Rd])
 
     os.system(f"sudo virsh define {xml_path}")
+     
+    copy_to_interfaces(f'./interfaces/{name}')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+
     os.system(f"sudo virsh start {name}")
 
     # ============================== #
@@ -143,9 +187,13 @@ def main():
     disk_path = f"{BASE_DISK_PATH}{name}.qcow2"
     xml_path = f"./xml_machines/{name}.xml"
     os.system(f"qemu-img create -f qcow2 -b {MASTER_DISK_PATH} -F qcow2 {disk_path}")
-    xml_generator.generateXml(name, disk_path, xml_path, bridges=[bridge_Red3_Rd])
+    xml_generator.generateXml(name, disk_path, xml_path, bridges=[bridge_Red4_Rd])
 
     os.system(f"sudo virsh define {xml_path}")
+ 
+    copy_to_interfaces(f'./interfaces/{name}')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+
     os.system(f"sudo virsh start {name}")
 
     # ============================== #
@@ -159,6 +207,10 @@ def main():
     xml_generator.generateXml(name, disk_path, xml_path, bridges=[bridge_Ra_Servidor])
 
     os.system(f"sudo virsh define {xml_path}")
+ 
+    copy_to_interfaces(f'./interfaces/{name}')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+
     os.system(f"sudo virsh start {name}")
 
     # ============================== #
@@ -169,9 +221,13 @@ def main():
     disk_path = f"{BASE_DISK_PATH}{name}.qcow2"
     xml_path = f"./xml_machines/{name}.xml"
     os.system(f"qemu-img create -f qcow2 -b {MASTER_DISK_PATH} -F qcow2 {disk_path}")
-    xml_generator.generateXml(name, disk_path, xml_path, bridges=[bridge_Ra_Servidor])
+    xml_generator.generateXml(name, disk_path, xml_path, bridges=[bridge_Ra_Servidor, bridge_Rb_Ra])
 
     os.system(f"sudo virsh define {xml_path}")
+     
+    copy_to_interfaces(f'./interfaces/{name}')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+
     os.system(f"sudo virsh start {name}")
 
     # ============================== #
@@ -182,9 +238,13 @@ def main():
     disk_path = f"{BASE_DISK_PATH}{name}.qcow2"
     xml_path = f"./xml_machines/{name}.xml"
     os.system(f"qemu-img create -f qcow2 -b {MASTER_DISK_PATH} -F qcow2 {disk_path}")
-    xml_generator.generateXml(name, disk_path, xml_path, bridges=[bridge__Rb_Ra, bridge_Rc_Rb, bridge_Rd_Rb])
+    xml_generator.generateXml(name, disk_path, xml_path, bridges=[bridge_Rb_Ra, bridge_Rc_Rb, bridge_Rd_Rb])
 
     os.system(f"sudo virsh define {xml_path}")
+ 
+    copy_to_interfaces(f'./interfaces/{name}')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+
     os.system(f"sudo virsh start {name}")
 
     # ============================== #
@@ -198,6 +258,10 @@ def main():
     xml_generator.generateXml(name, disk_path, xml_path, bridges=[bridge_Rc_Rb, bridge_Red1_Rc, bridge_Red2_Rc])
 
     os.system(f"sudo virsh define {xml_path}")
+     
+    copy_to_interfaces(f'./interfaces/{name}')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+
     os.system(f"sudo virsh start {name}")
 
     # ============================== #
@@ -211,18 +275,15 @@ def main():
     xml_generator.generateXml(name, disk_path, xml_path, bridges=[bridge_Rd_Rb, bridge_Red3_Rd, bridge_Red4_Rd])
 
     os.system(f"sudo virsh define {xml_path}")
+
+    copy_to_interfaces(f'./interfaces/{name}')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+
     os.system(f"sudo virsh start {name}")
+
+def copy_to_interfaces(input_path: str):
+    os.system(f'cp {input_path} ./interfaces/interfaces')
 
 
 if __name__ == "__main__":
-    xml_generator = XmlGenerator('./xml_reference.xml')
-
-    name = "pc0"
-    disk_path = f"{BASE_DISK_PATH}{name}.qcow2"
-    xml_path = f"./xml_machines/{name}.xml"
-    os.system(f"qemu-img create -f qcow2 -b {MASTER_DISK_PATH} -F qcow2 {disk_path}")
-    xml_generator.generateXml(name, disk_path, xml_path, bridges=['Red1'])
-    os.system(f"sudo virsh define {xml_path}")
-    os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/{name} /etc/network/interfaces')
-    #os.system(f"sudo virsh start {name}")
-    #main()
+    main() # TODO: Comprobar bridge Red 3 y 4
