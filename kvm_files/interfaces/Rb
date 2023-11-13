@@ -1,0 +1,20 @@
+auto Io
+iface Io inet loopback
+
+auto eth0
+iface eth0 inet static
+    address 10.1.0.1
+    netmask 255.255.255.252
+    gateway 10.1.0.2
+
+auto eth1
+iface eth1 inet static
+    address 10.2.0.2
+    netmask 255.255.255.252
+    gateway 10.2.0.1
+    
+auto eth2
+iface eth2 inet static
+    address 10.3.0.2
+    netmask 255.255.255.252
+    gateway 10.3.0.1
