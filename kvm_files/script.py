@@ -3,6 +3,7 @@ import os
 
 BASE_DISK_PATH = "/home/alumno/Descargas/disks/"
 MASTER_DISK_PATH = "/home/alumno/Descargas/agr-vm-base.qcow2"
+MASTER_FRR_DISK_PATH = "/home/alumno/Descargas/agr-vm-base-frr.qcow2"
 
 
 class XmlGenerator:
@@ -220,7 +221,7 @@ def main():
     name = "Ra"
     disk_path = f"{BASE_DISK_PATH}{name}.qcow2"
     xml_path = f"./xml_machines/{name}.xml"
-    os.system(f"qemu-img create -f qcow2 -b {MASTER_DISK_PATH} -F qcow2 {disk_path}")
+    os.system(f"qemu-img create -f qcow2 -b {MASTER_FRR_DISK_PATH} -F qcow2 {disk_path}")
     xml_generator.generateXml(name, disk_path, xml_path, bridges=[bridge_Ra_Servidor, bridge_Rb_Ra])
 
     os.system(f"sudo virsh define {xml_path}")
@@ -237,7 +238,7 @@ def main():
     name = "Rb"
     disk_path = f"{BASE_DISK_PATH}{name}.qcow2"
     xml_path = f"./xml_machines/{name}.xml"
-    os.system(f"qemu-img create -f qcow2 -b {MASTER_DISK_PATH} -F qcow2 {disk_path}")
+    os.system(f"qemu-img create -f qcow2 -b {MASTER_FRR_DISK_PATH} -F qcow2 {disk_path}")
     xml_generator.generateXml(name, disk_path, xml_path, bridges=[bridge_Rb_Ra, bridge_Rc_Rb, bridge_Rd_Rb])
 
     os.system(f"sudo virsh define {xml_path}")
@@ -254,7 +255,7 @@ def main():
     name = "Rc"
     disk_path = f"{BASE_DISK_PATH}{name}.qcow2"
     xml_path = f"./xml_machines/{name}.xml"
-    os.system(f"qemu-img create -f qcow2 -b {MASTER_DISK_PATH} -F qcow2 {disk_path}")
+    os.system(f"qemu-img create -f qcow2 -b {MASTER_FRR_DISK_PATH} -F qcow2 {disk_path}")
     xml_generator.generateXml(name, disk_path, xml_path, bridges=[bridge_Rc_Rb, bridge_Red1_Rc, bridge_Red2_Rc])
 
     os.system(f"sudo virsh define {xml_path}")
@@ -271,7 +272,7 @@ def main():
     name = "Rd"
     disk_path = f"{BASE_DISK_PATH}{name}.qcow2"
     xml_path = f"./xml_machines/{name}.xml"
-    os.system(f"qemu-img create -f qcow2 -b {MASTER_DISK_PATH} -F qcow2 {disk_path}")
+    os.system(f"qemu-img create -f qcow2 -b {MASTER_FRR_DISK_PATH} -F qcow2 {disk_path}")
     xml_generator.generateXml(name, disk_path, xml_path, bridges=[bridge_Rd_Rb, bridge_Red3_Rd, bridge_Red4_Rd])
 
     os.system(f"sudo virsh define {xml_path}")
