@@ -18,6 +18,8 @@ services:
   router0: 
     container_name: router0
     tty: true
+    privileged: true
+    entrypoint: /scripts/router0_config.sh
     build: 
       context: ./router
       dockerfile: Dockerfile
@@ -31,6 +33,10 @@ services:
   router1: 
     container_name: router1
     tty: true
+    privileged: true
+    entrypoint: /scripts/router1_config.sh
+    environment:
+      - R_GATEWAY=10.1.0.2
     build: 
       context: ./router
       dockerfile: Dockerfile
@@ -46,6 +52,10 @@ services:
   router2: 
     container_name: router2
     tty: true
+    privileged: true
+    environment:
+      - R_GATEWAY=10.2.0.2
+    entrypoint: /scripts/router2_config.sh
     build: 
       context: ./router
       dockerfile: Dockerfile
@@ -60,6 +70,10 @@ services:
   router3:
     container_name: router3 
     tty: true
+    privileged: true
+    entrypoint: /scripts/router3_config.sh
+    environment:
+      - R_GATEWAY=10.3.0.2
     build: 
       context: ./router
       dockerfile: Dockerfile
@@ -77,14 +91,14 @@ services:
       - NET_ADMIN
     container_name: pc0
     tty: true
+    privileged: true
+    entrypoint: /scripts/ip_route.sh
     environment: 
       - R_GATEWAY=10.0.0.1
       - R_POOL=10.0.0.0/8
     build: 
       context: ./pc
       dockerfile: Dockerfile
-    volumes:
-      - ./pc:/scripts
     networks:
       br_r2pc0: 
         ipv4_address: 10.0.0.50
@@ -94,14 +108,14 @@ services:
       - NET_ADMIN
     container_name: pc1
     tty: true
+    privileged: true
+    entrypoint: /scripts/ip_route.sh
     environment: 
       - R_GATEWAY=10.0.1.1
       - R_POOL=10.0.0.0/8
     build: 
       context: ./pc
       dockerfile: Dockerfile
-    volumes:
-      - ./pc:/scripts
     networks:
       br_r2pc1: 
         ipv4_address: 10.0.1.50
@@ -111,14 +125,14 @@ services:
       - NET_ADMIN
     container_name: pc2
     tty: true
+    privileged: true
+    entrypoint: /scripts/ip_route.sh
     environment: 
       - R_GATEWAY=10.0.2.1
       - R_POOL=10.0.0.0/8
     build: 
       context: ./pc
       dockerfile: Dockerfile
-    volumes:
-      - ./pc:/scripts
     networks:
       br_r3pc2: 
         ipv4_address: 10.0.2.50
@@ -128,20 +142,17 @@ services:
       - NET_ADMIN
     container_name: pc3
     tty: true
+    privileged: true
+    entrypoint: /scripts/ip_route.sh
     environment: 
       - R_GATEWAY=10.0.3.1
       - R_POOL=10.0.0.0/8
     build: 
       context: ./pc
       dockerfile: Dockerfile
-    volumes:
-      - ./pc:/scripts
     networks:
       br_r3pc3: 
         ipv4_address: 10.0.3.50
-
-    
-
       
 
 networks:
