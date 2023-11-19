@@ -7,9 +7,14 @@ services:
   server: 
     container_name: server
     tty: true
+    privileged: true
+    entrypoint: /scripts/bootstrap.sh
     build: 
       context: ./server
       dockerfile: Dockerfile
+    command: 
+      - "/bin/sleep"
+      - "infinity"
     networks:
       br_sr0:
         ipv4_address: 10.5.0.2
@@ -23,6 +28,9 @@ services:
     build: 
       context: ./router
       dockerfile: Dockerfile
+    command: 
+      - "/bin/sleep"
+      - "infinity"
     networks:
       br_sr0:
         ipv4_address: 10.5.0.1
@@ -40,6 +48,9 @@ services:
     build: 
       context: ./router
       dockerfile: Dockerfile
+    command: 
+      - "/bin/sleep"
+      - "infinity"
     networks:
       br_r0r1:
         ipv4_address: 10.1.0.1
@@ -59,6 +70,9 @@ services:
     build: 
       context: ./router
       dockerfile: Dockerfile
+    command: 
+      - "/bin/sleep"
+      - "infinity"
     networks:
       br_r1r2:
         ipv4_address: 10.2.0.1
@@ -77,6 +91,9 @@ services:
     build: 
       context: ./router
       dockerfile: Dockerfile
+    command: 
+      - "/bin/sleep"
+      - "infinity"
     networks:
       br_r1r3:
         ipv4_address: 10.3.0.1
