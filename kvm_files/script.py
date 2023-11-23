@@ -3,7 +3,7 @@ import os
 
 BASE_DISK_PATH = "/home/alumno/Descargas/disks/"
 MASTER_DISK_PATH = "/home/alumno/Descargas/agr-vm-base.qcow2"
-MASTER_FRR_DISK_PATH = "/home/alumno/Descargas/agr-vm-base-frr.qcow2"
+MASTER_FRR_DISK_PATH = "/home/alumno/Descargas/agr-vm-base-frr-prueba.qcow2"
 
 
 class XmlGenerator:
@@ -143,6 +143,8 @@ def main():
      
     copy_to_interfaces(f'./interfaces/{name}')
     os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./routing/on_boot.sh /boot/')
+
 
     os.system(f"sudo virsh start {name}")
 
@@ -159,7 +161,10 @@ def main():
     os.system(f"sudo virsh define {xml_path}")
  
     copy_to_interfaces(f'./interfaces/{name}')
+    copy_on_boot(f'./routing/default.sh')
     os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./routing/on_boot.sh /boot/')
+
 
     os.system(f"sudo virsh start {name}")
 
@@ -176,7 +181,10 @@ def main():
     os.system(f"sudo virsh define {xml_path}")
      
     copy_to_interfaces(f'./interfaces/{name}')
+    copy_on_boot(f'./routing/default.sh')
     os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./routing/on_boot.sh /boot/')
+
 
     os.system(f"sudo virsh start {name}")
 
@@ -193,7 +201,10 @@ def main():
     os.system(f"sudo virsh define {xml_path}")
  
     copy_to_interfaces(f'./interfaces/{name}')
+    copy_on_boot(f'./routing/default.sh')
     os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./routing/on_boot.sh /boot/')
+
 
     os.system(f"sudo virsh start {name}")
 
@@ -210,7 +221,10 @@ def main():
     os.system(f"sudo virsh define {xml_path}")
  
     copy_to_interfaces(f'./interfaces/{name}')
+    copy_on_boot(f'./routing/default.sh')
     os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./routing/on_boot.sh /boot/')
+
 
     os.system(f"sudo virsh start {name}")
 
@@ -227,7 +241,10 @@ def main():
     os.system(f"sudo virsh define {xml_path}")
      
     copy_to_interfaces(f'./interfaces/{name}')
+    copy_on_boot(f'./routing/{name}.sh')
     os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./routing/on_boot.sh /boot/')
+
 
     os.system(f"sudo virsh start {name}")
 
@@ -244,7 +261,10 @@ def main():
     os.system(f"sudo virsh define {xml_path}")
  
     copy_to_interfaces(f'./interfaces/{name}')
+    copy_on_boot(f'./routing/{name}.sh')
     os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./routing/on_boot.sh /boot/')
+
 
     os.system(f"sudo virsh start {name}")
 
@@ -261,7 +281,10 @@ def main():
     os.system(f"sudo virsh define {xml_path}")
      
     copy_to_interfaces(f'./interfaces/{name}')
+    copy_on_boot(f'./routing/{name}.sh')
     os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./routing/on_boot.sh /boot/')
+
 
     os.system(f"sudo virsh start {name}")
 
@@ -278,12 +301,17 @@ def main():
     os.system(f"sudo virsh define {xml_path}")
 
     copy_to_interfaces(f'./interfaces/{name}')
+    copy_on_boot(f'./routing/{name}.sh')
     os.system(f'sudo virt-copy-in -a {disk_path} ./interfaces/interfaces /etc/network/')
+    os.system(f'sudo virt-copy-in -a {disk_path} ./routing/on_boot.sh /boot/')
 
     os.system(f"sudo virsh start {name}")
 
 def copy_to_interfaces(input_path: str):
     os.system(f'cp {input_path} ./interfaces/interfaces')
+
+def copy_on_boot(input_path: str):
+    os.system(f'cp {input_path} ./routing/on_boot.sh')
 
 
 if __name__ == "__main__":
