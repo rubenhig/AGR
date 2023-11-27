@@ -19,6 +19,24 @@ o bien:
 ```
 pip install lxml
 ```
+Si al lanzar el script nos da error de permisos al intentar usar las imagenes .qcow, debemos editar el siguiente fichero: 
+```
+sudo nano /etc/libvirt/qemu.conf
+```
+y en la líneas
+```
+#user = "root"
+...
+#group = "libvirt"
+```
+las modificamos:
+```
+user = "alumno" (o el usuario que va a ejecutar el script)
+...
+group = "libvirt"
+```
+
+
 
 # AGRp3
 ![alt text](https://github.com/rubenhig/AGR/blob/main/net_diagram.PNG)
