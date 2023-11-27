@@ -35,8 +35,10 @@ user = "alumno" (o el usuario que va a ejecutar el script)
 ...
 group = "libvirt"
 ```
-
-
+Y ahora ejecutamos:
+```
+sudo systemctl restart libvirtd
+```
 
 # AGRp3
 ![alt text](https://github.com/rubenhig/AGR/blob/main/net_diagram.PNG)
