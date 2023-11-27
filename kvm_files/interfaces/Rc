@@ -10,9 +10,9 @@ iface eth0 inet static
 auto eth1
 iface eth1 inet static
     address 10.0.0.1
-    netmask 255.255.255.252
+    netmask 255.255.255.0
     
 auto eth2
 iface eth2 inet static
     address 10.0.1.1
-    netmask 255.255.255.252
+    netmask 255.255.255.0
