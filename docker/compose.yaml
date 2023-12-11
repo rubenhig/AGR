@@ -10,7 +10,7 @@ services:
     entrypoint: /scripts/fluentd_config.sh
     build: 
       context: ./fluentd 
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     volumes:
       - ./fluentd/config/fluent.conf:/fluentd/etc/fluent.conf
       - ./fluentd/output:/fluentd/output
@@ -30,7 +30,7 @@ services:
     container_name: server
     tty: true
     privileged: true
-    entrypoint: /scripts/bootstrap.sh
+    entrypoint: /scripts/entrypoint.sh
     build: 
       context: ./server
       dockerfile: Dockerfile
