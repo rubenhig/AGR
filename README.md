@@ -43,5 +43,9 @@ sudo systemctl restart libvirtd
 # AGRp3
 ![alt text](https://github.com/rubenhig/AGR/blob/main/net_diagram.PNG)
 
+En la parte de Kubernetes hay que seguir este tutorial para poder utilizarlo en WSL: 
 
+https://kubernetes.io/blog/2020/05/21/wsl-docker-kubernetes-on-the-windows-desktop/
+
+### FALTA POR DOCUMENTAR E IMPLEMENTAR! 
 
