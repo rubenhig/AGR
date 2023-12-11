@@ -3,6 +3,28 @@ version: '3'
 
 services:
 
+  docker-fluentd:
+    container_name: docker-fluentd
+    tty: true
+    privileged: true
+    entrypoint: /scripts/fluentd_config.sh
+    build: 
+      context: ./fluentd 
+      dockerfile: dockerfile
+    volumes:
+      - ./fluentd/config/fluent.conf:/fluentd/etc/fluent.conf
+      - ./fluentd/output:/fluentd/output
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+      - "5140/tcp"
+    command: command
+      - "/bin/sleep"
+      - "infinity"
+    networks:
+      fluentd-system: 
+        ipv4_address: 10.100.0.2
+    
 
   server: 
     container_name: server
@@ -32,6 +54,8 @@ services:
       - "/bin/sleep"
       - "infinity"
     networks:
+      fluentd-system:
+        ipv4_address: 10.100.0.1
       br_sr0:
         ipv4_address: 10.5.0.1
       br_r0r1:
@@ -173,6 +197,12 @@ services:
       
 
 networks:
+  fluentd-system:
+    driver: bridge
+    ipam: 
+      config: 
+        - subnet: "10.100.0.0/24"
+
   br_sr0:
     internal: false
     driver: bridge
