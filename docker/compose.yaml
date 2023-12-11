@@ -7,7 +7,7 @@ services:
     container_name: docker-fluentd
     tty: true
     privileged: true
-    entrypoint: /scripts/fluentd_config.sh
+    entrypoint: /entrypoint.sh
     build: 
       context: ./fluentd 
       dockerfile: Dockerfile
@@ -24,13 +24,37 @@ services:
     networks:
       fluentd-system: 
         ipv4_address: 10.100.0.2
-    
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.1
+    container_name: elasticsearch
+    environment:
+      - "discovery.type=single-node"
+    expose:
+      - "9200"
+    ports:
+      - "9200:9200"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.13.1
+    links:
+      - "elasticsearch"
+    ports:
+      - "5601:5601"  
 
   server: 
     container_name: server
     tty: true
     privileged: true
     entrypoint: /scripts/entrypoint.sh
+    links:
+      - "docker-fluentd"
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: 10.100.0.2:24224
+        tag: server
+        fluentd-async: 'true'
     build: 
       context: ./server
       dockerfile: Dockerfile
@@ -47,6 +71,14 @@ services:
     tty: true
     privileged: true
     entrypoint: /scripts/router0_config.sh
+    links:
+      - "docker-fluentd"
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: 10.100.0.2:24224
+        tag: router0
+        fluentd-async: 'true'
     build: 
       context: ./router
       dockerfile: Dockerfile
@@ -67,8 +99,16 @@ services:
     tty: true
     privileged: true
     entrypoint: /scripts/router1_config.sh
+    links:
+      - "docker-fluentd"
     environment:
       - R_GATEWAY=10.1.0.2
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: 10.100.0.2:24224
+        tag: router1
+        fluentd-async: 'true'
     build: 
       context: ./router
       dockerfile: Dockerfile
@@ -91,6 +131,14 @@ services:
     environment:
       - R_GATEWAY=10.2.0.2
     entrypoint: /scripts/router2_config.sh
+    links:
+      - "docker-fluentd"
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: 10.100.0.2:24224
+        tag: router2
+        fluentd-async: 'true'
     build: 
       context: ./router
       dockerfile: Dockerfile
@@ -110,8 +158,16 @@ services:
     tty: true
     privileged: true
     entrypoint: /scripts/router3_config.sh
+    links:
+      - "docker-fluentd"
     environment:
       - R_GATEWAY=10.3.0.2
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: 10.100.0.2:24224
+        tag: router3
+        fluentd-async: 'true'
     build: 
       context: ./router
       dockerfile: Dockerfile
@@ -134,9 +190,17 @@ services:
     tty: true
     privileged: true
     entrypoint: /scripts/ip_route.sh
+    links:
+      - "docker-fluentd"
     environment: 
       - R_GATEWAY=10.0.0.1
       - R_POOL=10.0.0.0/8
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: 10.100.0.2:24224
+        tag: pc0
+        fluentd-async: 'true'
     build: 
       context: ./pc
       dockerfile: Dockerfile
@@ -151,9 +215,17 @@ services:
     tty: true
     privileged: true
     entrypoint: /scripts/ip_route.sh
+    links:
+      - "docker-fluentd"
     environment: 
       - R_GATEWAY=10.0.1.1
       - R_POOL=10.0.0.0/8
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: 10.100.0.2:24224
+        tag: pc1
+        fluentd-async: 'true'
     build: 
       context: ./pc
       dockerfile: Dockerfile
@@ -168,9 +240,17 @@ services:
     tty: true
     privileged: true
     entrypoint: /scripts/ip_route.sh
+    links:
+      - "docker-fluentd"
     environment: 
       - R_GATEWAY=10.0.2.1
       - R_POOL=10.0.0.0/8
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: 10.100.0.2:24224
+        tag: pc2
+        fluentd-async: 'true'
     build: 
       context: ./pc
       dockerfile: Dockerfile
@@ -185,9 +265,17 @@ services:
     tty: true
     privileged: true
     entrypoint: /scripts/ip_route.sh
+    links:
+      - "docker-fluentd"
     environment: 
       - R_GATEWAY=10.0.3.1
       - R_POOL=10.0.0.0/8
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: 10.100.0.2:24224
+        tag: pc3
+        fluentd-async: 'true'
     build: 
       context: ./pc
       dockerfile: Dockerfile
