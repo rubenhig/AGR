@@ -52,8 +52,7 @@ chmod +x lxd.sh
 Este script lanzará un contenedor con Ubuntu:22.04 y ejecutará el script bootstrap_lxd.sh, encargado de levantar el servidor web.
 
 ## 3.2 Diagrama de Red (Docker)
-![alt text](https://github.com/rubenhig/AGR/blob/main/P3_net_diagram.png)
-
+![Diagrama Práctica 3](https://github.com/rubenhig/AGR/blob/main/P3_net_diagram.png)
 ## 3.3 Configuración del Entorno (Docker)
 Para poder levantar todos los contenedores habrá que hacer lo siguiente: 
 ```
