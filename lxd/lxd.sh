@@ -1,6 +1,9 @@
 #!/bin/bash
 
-###### Script encargado de lanzar un contenedor con LXD y ejecutar el servidor web con nodejs usando el fichero boostrap.sh ######
+######
+###### Script encargado de lanzar un contenedor con LXD y ejecutar el servidor web 
+###### con nodejs usando el fichero boostrap.sh 
+######
 
 # 1. Hay que tener instalado LXD:
 

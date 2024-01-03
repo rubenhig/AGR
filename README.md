@@ -41,7 +41,7 @@ sudo systemctl restart libvirtd
 ```
 
 # AGRp3
-![alt text](https://github.com/rubenhig/AGR/blob/main/net_diagram.PNG)
+![alt text](https://github.com/rubenhig/AGR/blob/main/P3_net_diagram.PNG)
 
 En la parte de Kubernetes hay que seguir este tutorial para poder utilizarlo en WSL: 
 
