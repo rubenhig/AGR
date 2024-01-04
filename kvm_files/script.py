@@ -22,7 +22,10 @@ class XmlGenerator:
         Crea ficheros xml para maquinas virtuales kvm
 
         Args:
-            quantity (int): # de ficheros a generar
+            name (int): nombre de la máquina virtual
+            disk_path (int): ruta al disco de la máquina virtual
+            xml_path (int): ruta en la que guardar el fichero generado
+            bridges (list): lista de bridges a los que conectarse
         """
 
         # Parse the XML file
