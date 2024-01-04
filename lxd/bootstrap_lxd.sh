@@ -3,7 +3,6 @@
 ### Script encargado de descargar el codigo del servidor web, asi como todas sus dependencias ### 
 
 sudo apt update -y
-sudo apt upgrade -y 
 
 sudo apt install -y nodejs
 sudo apt install -y npm

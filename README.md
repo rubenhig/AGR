@@ -51,6 +51,7 @@ chmod +x lxd.sh
 ```
 Este script lanzará un contenedor con Ubuntu:22.04 y ejecutará el script bootstrap_lxd.sh, encargado de levantar el servidor web.
 
+
 ## 3.2 Diagrama de Red (Docker)
 ![Diagrama Práctica 3](https://github.com/rubenhig/AGR/blob/main/P3_net_diagram.png)
 ## 3.3 Configuración del Entorno (Docker)
@@ -65,5 +66,4 @@ En la parte de Kubernetes hay que seguir este tutorial para poder utilizarlo en 
 
 https://kubernetes.io/blog/2020/05/21/wsl-docker-kubernetes-on-the-windows-desktop/
 
-### FALTA POR DOCUMENTAR E IMPLEMENTAR! 
 
