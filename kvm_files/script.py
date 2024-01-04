@@ -64,7 +64,7 @@ def main():
 
     bridge_Red1_Rc = "Red1"
 
-    # Borrar los bridges antes de volver a crearlos (si fallan es que no existian, pero funciona guay aun así)
+    # Borrar los bridges antes de volver a crearlos (si fallan es que no existian, pero funciona bien aun así)
     os.system(f"sudo ip link set {bridge_Red1_Rc} down")
     os.system(f"sudo brctl delbr {bridge_Red1_Rc}")
 
@@ -73,7 +73,7 @@ def main():
 
     bridge_Red2_Rc = "Red2"
 
-    # Borrar los bridges antes de volver a crearlos (si fallan es que no existian, pero funciona guay aun así)
+    # Borrar los bridges antes de volver a crearlos (si fallan es que no existian, pero funciona bien aun así)
     os.system(f"sudo ip link set {bridge_Red2_Rc} down")
     os.system(f"sudo brctl delbr {bridge_Red2_Rc}")
 
@@ -82,7 +82,7 @@ def main():
 
     bridge_Red3_Rd = "Red3"
 
-    # Borrar los bridges antes de volver a crearlos (si fallan es que no existian, pero funciona guay aun así)
+    # Borrar los bridges antes de volver a crearlos (si fallan es que no existian, pero funciona bien aun así)
     os.system(f"sudo ip link set {bridge_Red3_Rd} down")
     os.system(f"sudo brctl delbr {bridge_Red3_Rd}")
     
@@ -91,7 +91,7 @@ def main():
 
     bridge_Red4_Rd = "Red4"
 
-    # Borrar los bridges antes de volver a crearlos (si fallan es que no existian, pero funciona guay aun así)
+    # Borrar los bridges antes de volver a crearlos (si fallan es que no existian, pero funciona bien aun así)
     os.system(f"sudo ip link set {bridge_Red4_Rd} down")
     os.system(f"sudo brctl delbr {bridge_Red4_Rd}")
 
@@ -100,7 +100,7 @@ def main():
 
     bridge_Rc_Rb = "RcRb"
 
-    # Borrar los bridges antes de volver a crearlos (si fallan es que no existian, pero funciona guay aun así)
+    # Borrar los bridges antes de volver a crearlos (si fallan es que no existian, pero funciona bien aun así)
     os.system(f"sudo ip link set {bridge_Rc_Rb} down")
     os.system(f"sudo brctl delbr {bridge_Rc_Rb}")
 
@@ -109,7 +109,7 @@ def main():
 
     bridge_Rd_Rb = "RbRd"
 
-    # Borrar los bridges antes de volver a crearlos (si fallan es que no existian, pero funciona guay aun así)
+    # Borrar los bridges antes de volver a crearlos (si fallan es que no existian, pero funciona bien aun así)
     os.system(f"sudo ip link set {bridge_Rd_Rb} down")
     os.system(f"sudo brctl delbr {bridge_Rd_Rb}")
 
@@ -118,7 +118,7 @@ def main():
 
     bridge_Rb_Ra = "RbRa"
 
-    # Borrar los bridges antes de volver a crearlos (si fallan es que no existian, pero funciona guay aun así)
+    # Borrar los bridges antes de volver a crearlos (si fallan es que no existian, pero funciona bien aun así)
     os.system(f"sudo ip link set {bridge_Rb_Ra} down")
     os.system(f"sudo brctl delbr {bridge_Rb_Ra}")
 
@@ -127,7 +127,7 @@ def main():
 
     bridge_Ra_Servidor = "SRa"
 
-    # Borrar los bridges antes de volver a crearlos (si fallan es que no existian, pero funciona guay aun así)
+    # Borrar los bridges antes de volver a crearlos (si fallan es que no existian, pero funciona bien aun así)
     os.system(f"sudo ip link set {bridge_Ra_Servidor} down")
     os.system(f"sudo brctl delbr {bridge_Ra_Servidor}")
 
@@ -320,4 +320,4 @@ def copy_on_boot(input_path: str):
 
 
 if __name__ == "__main__":
-    main() # TODO: Comprobar bridge Red 3 y 4
+    main()
